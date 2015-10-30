@@ -8,6 +8,18 @@ include_once ROOT . '/controllers/Request_errorController.php';
 */
 class AuthorizationController
 {	
+
+
+		//в разі введення неправильного запиту, відповідний йому метод не буде знайдений в контроллері
+	//тому викличеться магічний метод __call, який перенаправить користувача на сторінку з інформацією про помилку
+	public function __call($actionName, $parameters)
+	{
+		Request_errorController::actionWrong_request();
+		
+	}
+
+
+	
 	public function actionLog_in()
 	{				 
 		Authorization::logIn();

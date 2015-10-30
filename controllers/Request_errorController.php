@@ -1,10 +1,14 @@
 <?php
 //
+
+
+include_once ROOT . '/views/request_error/index.php';
+
 class Request_errorController
 {
 	public static function actionWrong_request()
 	{
-		print '<h1>WRONG   REQUEST</h1>
-			   <h3>check your link</h3>';
+		Request_errorView::request_error();
 	}
 }
+

@@ -20,10 +20,10 @@ require_once (ROOT . '/base/header.php');
       <div class="form-group">
 
         <label for="name">Логін</label>
-        <input class="form-control" type="text" name="name" id="name" required>
+        <input class="form-control" type="text" name="name" id="name" placeholder="admin" required>
 
         <label for="name">Пароль</label>
-        <input class="form-control" type="password" name="pass" required>
+        <input class="form-control" type="password" name="pass" placeholder="123" required>
 
         <input class="btn btn-danger" type="submit" name="submit" value="Відправити">
 
