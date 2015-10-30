@@ -74,6 +74,7 @@ table {
 			min-width: 50%;
 			width: 50%;
 			min-height: 280px;
+			
 		}
 
 		input[type=submit] {
@@ -107,7 +108,8 @@ table {
 	margin: auto;
 	margin-top: 30px;
 	padding-top: 20px;
-	
+	word-wrap: break-word;
+
 	.info {
 		margin-top: 10px;
 		.timestamp{

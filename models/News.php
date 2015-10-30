@@ -161,4 +161,62 @@ class News
 		*/
 		return $newsList;
 	}
+
+
+
+
+
+	public static function getNewsListByPage($page)
+	{
+		$db = Db::getConnection();
+
+		//тут взнаю кільскість записів в таблиці
+		$row_count = array();
+		$stmt = $db->query("SELECT COUNT(1) FROM `publication`");
+		$row_count = $stmt->fetch(PDO::FETCH_NUM);
+
+		$page = intval($page);
+
+		//це кількість новин на сторінку. Поки стале число - потім перероблю на вибір числа з select
+		$news_quantity = 3;
+		
+
+		//взнаю кількість можливих сторінок на даний момент (округлення в більшу сторону)
+		$page_count = ceil($row_count[0]/$news_quantity);
+
+
+		//правило перенаправлення на сторінку з останніми доданими статтями
+		if ($page == 0 || !isset($page) || $page > $page_count) {
+			$page = $page_count;
+		}
+
+
+		print '<br>кількість можливих сторінок - ' . $page_count;
+		print '<br>кількість новин на сторінку - ' . $news_quantity;
+		print '<br>номер цієї сторінки - ' . $page;
+		print '<br>кількість статтей - ' . $row_count[0];
+		print '<br>' . ($row_count[0] - $news_quantity * ($page_count - $page + 1));
+
+		//робить виборку даних з таблиці відповідно до номеру сторінки ($page) в запиті та числа к-сті новин на сторінку
+		if ($page) {
+			$newsList = array();
+			$result = $db->query("SELECT id, title, date, short_content 
+								  FROM `publication` 
+								  ORDER BY date DESC 
+								  LIMIT " . (($page_count - $page) * $news_quantity)  . ", " . $news_quantity);
+
+							//(($page-1) * $news_quantity)  --  для послідовності сторінок: сторінка №1 з новими статтями
+							//(($page_count - $page) * $news_quantity)  -- для послідовності сторінок: сторінка №1 з старими статтями, а остання сторінка з найновішими статтями
+			$i = 0;
+			while ($row = $result->fetch()) {
+				$newsList[$i]['id'] = $row['id'];
+				$newsList[$i]['title'] = $row['title'];
+				$newsList[$i]['date'] = $row['date'];
+				$newsList[$i]['short_content'] = $row['short_content'];
+				$i++;
+			}				
+		}
+
+		return $newsList;
+	}
 }

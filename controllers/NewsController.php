@@ -26,6 +26,34 @@ class NewsController
 	}
 
 
+
+
+	//вивід статтей по сторінках
+	public function actionIndexByPage($page)
+	{
+		$newsList = array();
+		$newsList = News::getNewsListByPage($page);
+		if (!empty($newsList)) {
+			require_once (ROOT . '/views/news/index.php');		 	
+		}
+		else{
+		 	Request_errorController::actionWrong_request();
+		}
+
+		//print('page number - ' . $page);
+	
+		
+	}
+
+
+
+
+
+
+
+
+
+
 	//метод для перегляду статті по відповідному їй id
 	public function actionView($id)
 	{
