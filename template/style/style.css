@@ -100,4 +100,27 @@ table {
   .delete-button form input {
     margin: 20px; }
 
+.pager {
+  margin-top: 50px;
+  border-top: 3px solid white;
+  padding-top: 20px;
+  margin-bottom: 10px; }
+  .pager table {
+    width: 80%;
+    margin: auto;
+    border-collapse: separate;
+    border-spacing: 70px 0; }
+    .pager table tr td a {
+      display: block;
+      height: 48px;
+      line-height: 48px;
+      background: #FED410;
+      border-radius: 3px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: bold;
+      color: #000;
+      font-family: 'Roboto', sans-serif;
+      font-size: 1em; }
+
 /*# sourceMappingURL=style.css.map */

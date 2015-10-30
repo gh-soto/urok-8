@@ -41,13 +41,24 @@ require(ROOT . '/base/header.php');
     
   <?php endforeach; ?>
 
-  <div class="pager">
-    <!-- Пейджер на розробці. -->
-    Pager this!
-  </div>
+   <div class="pager">
 
+      <table>
+         <tr>
+            <td <?php print($newsItem['display_none_back']); ?>>
+               <a href="/page/<?php print($newsItem['page'] + 1); ?>">ПОПЕРЕДНЯ</a>
+              </td>
+            
+            <td <?php print($newsItem['display_none_next']); ?>>
+               <a  href="/page/<?php print($newsItem['page'] - 1); ?>">НАСТУПНА</a>
+            </td>
+         </tr>
+      </table>
+   
+   </div>
+      
 </div>
-
+   
 <?php
 // Підключаємо футер сайту.
 require('base/footer.php');

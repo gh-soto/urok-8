@@ -13,7 +13,10 @@ class News
 
 		if ($id) {
 			$db = Db::getConnection();
-			$result = $db->query("SELECT * FROM `publication` WHERE id=" . $id);
+			$result = $db->query("SELECT * 
+								  FROM `publication` 
+								  WHERE id=" . $id
+								);
 			$newsItem = $result->fetch(PDO::FETCH_ASSOC);
 
 			return $newsItem;
@@ -28,17 +31,17 @@ class News
 		if (isset($_POST['submit'])) {
 		
 			$stmt = $db->prepare('INSERT INTO `publication` 
-									VALUES(
-											NULL, 
-											:title, 
-											NULL, 
-											:short_content, 
-											:content, 
-											:author, 
-											:preview, 
-											:type
-											)
-								');
+								  VALUES(
+										NULL, 
+										:title, 
+										NULL, 
+										:short_content, 
+										:content, 
+										:author, 
+										:preview, 
+										:type
+									  )'
+								);
 
 			// Обрізаємо усі теги у загловку.
 			$stmt->bindParam(':title', strip_tags($_POST['title']));
@@ -74,12 +77,18 @@ class News
 
 		if ($id) {
 			$db = Db::getConnection();
-			$result = $db->query("SELECT * FROM `publication` WHERE id=" . $id);
+			$result = $db->query("SELECT * 
+								  FROM `publication` 
+								  WHERE id=" . $id
+								);
 			$newsItem = $result->fetch(PDO::FETCH_ASSOC);
 
 			if (isset($_POST['edit_post'])) {
 
-				$q = $db->prepare("UPDATE `publication`  SET title = :title, short_content = :short_content, content = :content WHERE id = :id");
+				$q = $db->prepare("UPDATE `publication`  
+								   SET title = :title, short_content = :short_content, content = :content 
+								   WHERE id = :id"
+								  );
 
 				$q->bindParam(':id', $newsItem['id'], PDO::PARAM_INT);	
 
@@ -112,19 +121,31 @@ class News
 		$id = intval($id);
 
 		if ($id) {
+
 			$db = Db::getConnection();
-			$result = $db->query("SELECT * FROM `publication` WHERE id=" . $id);
+			$result = $db->query("SELECT * 
+								  FROM `publication` 
+								  WHERE id=" . $id
+								);
 			$newsItem = $result->fetch(PDO::FETCH_ASSOC);
 
-			if (isset($_POST['abort_delete'])) { header("Location: /news/{$newsItem['id']}"); }
-			elseif (isset($_POST['delete_post'])) {
-				
-				$stmt = $db -> prepare("DELETE FROM `publication` WHERE id = :id");
+
+			if (isset($_POST['abort_delete'])) { 
+
+				header("Location: /news/{$newsItem['id']}"); 
+
+			}
+			elseif (isset($_POST['delete_post'])) {	
+
+				$stmt = $db -> prepare("DELETE FROM `publication` 
+										WHERE id = :id"
+									  );
 				$stmt->bindParam(':id', $newsItem['id'], PDO::PARAM_INT);   
 				$stmt->execute();
-				header("Location: /");
-					
+				header("Location: /");	
+
 			}
+
 
 			return $newsItem;
 		}
@@ -137,7 +158,11 @@ class News
 		
 		$db = Db::getConnection();
 		$newsList = array();
-		$result = $db->query("SELECT id, title, date, short_content FROM `publication` ORDER BY date DESC LIMIT 10");
+		$result = $db->query("SELECT id, title, date, short_content 
+							  FROM `publication` 
+							  ORDER BY date DESC 
+							  LIMIT 10"
+							);
 		$i = 0;
 		while ($row = $result->fetch()) {
 			$newsList[$i]['id'] = $row['id'];
@@ -172,13 +197,15 @@ class News
 
 		//тут взнаю кільскість записів в таблиці
 		$row_count = array();
-		$stmt = $db->query("SELECT COUNT(1) FROM `publication`");
+		$stmt = $db->query("SELECT COUNT(1) 
+						    FROM `publication`"
+						   );
 		$row_count = $stmt->fetch(PDO::FETCH_NUM);
-
 		$page = intval($page);
 
+
 		//це кількість новин на сторінку. Поки стале число - потім перероблю на вибір числа з select
-		$news_quantity = 3;
+		$news_quantity = 5;
 		
 
 		//взнаю кількість можливих сторінок на даний момент (округлення в більшу сторону)
@@ -191,19 +218,14 @@ class News
 		}
 
 
-		print '<br>кількість можливих сторінок - ' . $page_count;
-		print '<br>кількість новин на сторінку - ' . $news_quantity;
-		print '<br>номер цієї сторінки - ' . $page;
-		print '<br>кількість статтей - ' . $row_count[0];
-		print '<br>' . ($row_count[0] - $news_quantity * ($page_count - $page + 1));
-
 		//робить виборку даних з таблиці відповідно до номеру сторінки ($page) в запиті та числа к-сті новин на сторінку
 		if ($page) {
 			$newsList = array();
 			$result = $db->query("SELECT id, title, date, short_content 
 								  FROM `publication` 
 								  ORDER BY date DESC 
-								  LIMIT " . (($page_count - $page) * $news_quantity)  . ", " . $news_quantity);
+								  LIMIT " . (($page_count - $page) * $news_quantity)  . ", " . $news_quantity
+								);
 
 							//(($page-1) * $news_quantity)  --  для послідовності сторінок: сторінка №1 з новими статтями
 							//(($page_count - $page) * $news_quantity)  -- для послідовності сторінок: сторінка №1 з старими статтями, а остання сторінка з найновішими статтями
@@ -213,8 +235,30 @@ class News
 				$newsList[$i]['title'] = $row['title'];
 				$newsList[$i]['date'] = $row['date'];
 				$newsList[$i]['short_content'] = $row['short_content'];
+				$newsList[$i]['page'] = $page;
+
+
+				//умова якщо це сторінка з найновішими по даті новинами, то кнопці задаються атрибути
+				if ($page == $page_count) {
+					$newsList[$i]['display_none_back'] = ' style="visibility: hidden;"';
+					$newsList[$i]['display_none_next'] = ' ';
+				}
+				elseif ($page == 1) {
+					$newsList[$i]['display_none_back'] = ' ';
+					$newsList[$i]['display_none_next'] = ' style="visibility: hidden;"';
+				}
+				else {
+					$newsList[$i]['display_none_back'] = ' ';
+					$newsList[$i]['display_none_next'] = ' ';
+				}
+
 				$i++;
-			}				
+			}
+
+
+
+
+		
 		}
 
 		return $newsList;

@@ -24,6 +24,7 @@ if (!isset($page_title)) {
   <link rel="stylesheet" type="text/css" href="/template/style/style.css">
   <script src="js/jquery-1.11.3.min.js"></script>
   <script src="js/bootstrap.min.js"></script>
+  <link href='https://fonts.googleapis.com/css?family=Roboto:400,500' rel='stylesheet' type='text/css'>
   <meta charset="UTF-8">
 </head>
 <body>
