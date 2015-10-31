@@ -188,13 +188,52 @@ class News
 	}
 
 
+	public static function getNumberOfPagesPerPage()
+	{
+
+		//функція з формою вибору статтей на сторінку
+		function selected_news_per_page($value, $new_atribute){
+			$form_select = '<form class="form-inline " role="form"  action="' . $_SERVER["REQUEST_URI"] . '" method="POST">	
+								<div class="form-group">	
+									<select class="form-control" name="news-per-page" onchange="if (this.form) this.form.submit();">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option value="6">6</option>
+									</select>
+								</div>
+							</form>';
+
+			$path = 'value="' . $value . '"';
+			$replace = 'value="' . $value . '" ' . $new_atribute;
+			$form_select = str_replace($path, $replace, $form_select);
+			return $form_select;
+		}
+
+		//в селекті вибрано 3 по замовчуванню
+		$form_select = selected_news_per_page ('3', 'selected');
+
+		//встановлення атрибуту "selected" залежно від вибраного option в select
+		if (isset($_POST['news-per-page']) && isset($_COOKIE['news-per-page'])) {
+			$form_select = selected_news_per_page ($_POST['news-per-page'], 'selected'); 
+		}
+		elseif (isset($_COOKIE['news-per-page'])) {
+			$form_select = selected_news_per_page ($_COOKIE['news-per-page'], 'selected'); 
+		}
+		
+		return $form_select;
+	}
+
+
 
 
 
 	public static function getNewsListByPage($page)
 	{
 		$db = Db::getConnection();
-
+		
 		//тут взнаю кільскість записів в таблиці
 		$row_count = array();
 		$stmt = $db->query("SELECT COUNT(1) 
@@ -204,9 +243,20 @@ class News
 		$page = intval($page);
 
 
-		//це кількість новин на сторінку. Поки стале число - потім перероблю на вибір числа з select
-		$news_quantity = 5;
-		
+		//це скільки новин треба показувати на сторінці. 
+		//число береться з селекта (з селекта воно передається в POST і зберігається в кукі)
+		if (isset($_POST['news-per-page'])) {
+			$news_quantity = $_POST['news-per-page'];
+			setcookie("news-per-page", $news_quantity, time()+360000, "/");
+		}
+		elseif (isset($_COOKIE['news-per-page'])) {
+			$news_quantity = $_COOKIE['news-per-page'];
+		}
+		elseif (!isset($_POST['news-per-page']) && !isset($_COOKIE['news-per-page'])) {
+			$news_quantity = 3;
+			setcookie("news-per-page", $news_quantity, time()+360000, "/");
+		}
+
 
 		//взнаю кількість можливих сторінок на даний момент (округлення в більшу сторону)
 		$page_count = ceil($row_count[0]/$news_quantity);
@@ -220,15 +270,16 @@ class News
 
 		//робить виборку даних з таблиці відповідно до номеру сторінки ($page) в запиті та числа к-сті новин на сторінку
 		if ($page) {
-			$newsList = array();
+			
 			$result = $db->query("SELECT id, title, date, short_content 
 								  FROM `publication` 
 								  ORDER BY date DESC 
 								  LIMIT " . (($page_count - $page) * $news_quantity)  . ", " . $news_quantity
 								);
+											//(($page-1) * $news_quantity)  --  для послідовності сторінок: сторінка №1 з новими статтями
+											//(($page_count - $page) * $news_quantity)  -- для послідовності сторінок: сторінка №1 з старими статтями, а остання сторінка з найновішими статтями
 
-							//(($page-1) * $news_quantity)  --  для послідовності сторінок: сторінка №1 з новими статтями
-							//(($page_count - $page) * $news_quantity)  -- для послідовності сторінок: сторінка №1 з старими статтями, а остання сторінка з найновішими статтями
+
 			$i = 0;
 			while ($row = $result->fetch()) {
 				$newsList[$i]['id'] = $row['id'];
@@ -238,7 +289,7 @@ class News
 				$newsList[$i]['page'] = $page;
 
 
-				//умова якщо це сторінка з найновішими по даті новинами, то кнопці задаються атрибути
+				//умова якщо це перша чи остання сторінка з статтями, то кнопці задаються атрибути
 				if ($page == $page_count) {
 					$newsList[$i]['display_none_back'] = ' style="visibility: hidden;"';
 					$newsList[$i]['display_none_next'] = ' ';
@@ -254,13 +305,11 @@ class News
 
 				$i++;
 			}
-
-
-
-
-		
 		}
 
 		return $newsList;
 	}
+
+
+
 }

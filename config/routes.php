@@ -16,6 +16,6 @@ return array (
 	'news/edit/([0-9]+)' => 'news/edit/$1',
 	'news/add_news' => 'news/add_news',
 	'news/([0-9]+)' => 'news/view/$1',
-	'news' => 'news/index',
+	'news' => 'news/indexbypage/$1',
 	'' => 'news/indexbypage/$1', // actionIndex in NewsController
 	);

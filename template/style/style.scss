@@ -1,6 +1,14 @@
+html { 
+ position:relative; 
+ min-height:100%;
+}
+
 body {
 	background: #80b07e;
-
+	height: 100%;
+	.articles-list {
+		padding-bottom: 100px;/*Примерно 2 размера footer, чтобы он не наезжал на контент при узком окне браузера*/
+	}
 }
 /**прибирає стрілки з числового інпута*/
 input[type=number] {
@@ -42,12 +50,15 @@ table {
 		width: 2%;
 		padding: 1px;
 		input[type=text] {
-			width: 100%;
-			
+			width: 100%;			
 		}
 		
 	}
 }
+
+
+
+
 
 .container {
 	margin: 40px auto;
@@ -100,6 +111,51 @@ table {
 		}
 	}
 }
+
+
+
+.small-menu {
+	vertical-align: middle;
+
+	width: 95%;
+	margin: auto;
+	
+	height: 40px;             /*щоб текст був посередині блока по висоті*/
+	line-height: 40px;		  /*  */
+
+	.form-inline{
+		.form-group {	
+			color: #1e5e1b;
+			font-weight: bold;
+			font-style: italic;
+			font-family: 'Roboto', sans-serif;
+			display: block;
+			float: left;
+
+			select{
+				width: 60px;
+			}
+		}
+	}
+
+	p {
+		color: #1e5e1b;
+		font-weight: bold;
+		font-style: italic;
+		font-family: 'Roboto', sans-serif;
+		margin-left: 10px;
+		display: block;
+		float: left;
+	}
+}
+.small-menu::after {     /*clear-fix при використанні float всередині блока*/
+	content: '.';
+	display: block;
+	clear: both;
+	height: 0;
+}
+
+
 
 .article-item {
 	padding: 10px;
@@ -154,10 +210,14 @@ table {
 }
 
 .pager {
+
+	/*  http://webgyry.info/footer-to-bottom-page-css*/ 
 	margin-top: 50px;
 	border-top: 3px solid white;
 	padding-top: 20px;
 	margin-bottom: 10px;
+	position: absolute;
+ 	bottom: 0;
 	table {
 		width: 80%;
 		margin: auto;
@@ -178,14 +238,19 @@ table {
 					line-height: 48px; 
 
 					background: #FED410;
-					border-radius: 3px;
+					border-radius: 8px;
 					
 					text-align: center;
 					text-decoration: none;
-					font-weight: bold;
+					font-style: italic;
 					color: #000;
 					font-family: 'Roboto', sans-serif;
-					font-size: 1em;
+					font-size: 1.5em;
+
+					/*щоб не можна було виділити мишкою елемент*/
+					-moz-user-select: none;
+					-khtml-user-select: none;
+					-webkit-user-select: none; 
 				}
 			}
 		}

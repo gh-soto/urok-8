@@ -14,7 +14,7 @@ class NewsController
 		
 	}
 
-
+/*
 	//метод для перегляду всіх статтей
 	public function actionIndex()
 	{
@@ -24,13 +24,15 @@ class NewsController
 		require_once (ROOT . '/views/news/index.php');
 		
 	}
-
+*/
 
 
 
 	//вивід статтей по сторінках
 	public function actionIndexByPage($page)
 	{
+		$news_per_page = News::getNumberOfPagesPerPage();
+		
 		$newsList = array();
 		$newsList = News::getNewsListByPage($page);
 		if (!empty($newsList)) {
@@ -40,17 +42,10 @@ class NewsController
 		 	Request_errorController::actionWrong_request();
 		}
 
-		//print('page number - ' . $page);
+	
 	
 		
 	}
-
-
-
-
-
-
-
 
 
 

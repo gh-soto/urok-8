@@ -1,6 +1,14 @@
 @charset "UTF-8";
+html {
+  position: relative;
+  min-height: 100%; }
+
 body {
-  background: #80b07e; }
+  background: #80b07e;
+  height: 100%; }
+  body .articles-list {
+    padding-bottom: 100px;
+    /*╨Я╤А╨╕╨╝╨╡╤А╨╜╨╛ 2 ╤А╨░╨╖╨╝╨╡╤А╨░ footer, ╤З╤В╨╛╨▒╤Л ╨╛╨╜ ╨╜╨╡ ╨╜╨░╨╡╨╖╨╢╨░╨╗ ╨╜╨░ ╨║╨╛╨╜╤В╨╡╨╜╤В ╨┐╤А╨╕ ╤Г╨╖╨║╨╛╨╝ ╨╛╨║╨╜╨╡ ╨▒╤А╨░╤Г╨╖╨╡╤А╨░*/ }
 
 /**╨┐╤А╨╕╨▒╨╕╤А╨░╤Ф ╤Б╤В╤А╤Ц╨╗╨║╨╕ ╨╖ ╤З╨╕╤Б╨╗╨╛╨▓╨╛╨│╨╛ ╤Ц╨╜╨┐╤Г╤В╨░*/
 input[type=number] {
@@ -67,6 +75,39 @@ table {
     .header ul li a {
       font-size: 1.5em; }
 
+.small-menu {
+  vertical-align: middle;
+  width: 95%;
+  margin: auto;
+  height: 40px;
+  /*╤Й╨╛╨▒ ╤В╨╡╨║╤Б╤В ╨▒╤Г╨▓ ╨┐╨╛╤Б╨╡╤А╨╡╨┤╨╕╨╜╤Ц ╨▒╨╗╨╛╨║╨░ ╨┐╨╛ ╨▓╨╕╤Б╨╛╤В╤Ц*/
+  line-height: 40px;
+  /*  */ }
+  .small-menu .form-inline .form-group {
+    color: #1e5e1b;
+    font-weight: bold;
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+    display: block;
+    float: left; }
+    .small-menu .form-inline .form-group select {
+      width: 60px; }
+  .small-menu p {
+    color: #1e5e1b;
+    font-weight: bold;
+    font-style: italic;
+    font-family: 'Roboto', sans-serif;
+    margin-left: 10px;
+    display: block;
+    float: left; }
+
+.small-menu::after {
+  /*clear-fix ╨┐╤А╨╕ ╨▓╨╕╨║╨╛╤А╨╕╤Б╤В╨░╨╜╨╜╤Ц float ╨▓╤Б╨╡╤А╨╡╨┤╨╕╨╜╤Ц ╨▒╨╗╨╛╨║╨░*/
+  content: '.';
+  display: block;
+  clear: both;
+  height: 0; }
+
 .article-item {
   padding: 10px;
   border-radius: 5px;
@@ -101,10 +142,13 @@ table {
     margin: 20px; }
 
 .pager {
+  /*  http://webgyry.info/footer-to-bottom-page-css*/
   margin-top: 50px;
   border-top: 3px solid white;
   padding-top: 20px;
-  margin-bottom: 10px; }
+  margin-bottom: 10px;
+  position: absolute;
+  bottom: 0; }
   .pager table {
     width: 80%;
     margin: auto;
@@ -115,12 +159,16 @@ table {
       height: 48px;
       line-height: 48px;
       background: #FED410;
-      border-radius: 3px;
+      border-radius: 8px;
       text-align: center;
       text-decoration: none;
-      font-weight: bold;
+      font-style: italic;
       color: #000;
       font-family: 'Roboto', sans-serif;
-      font-size: 1em; }
+      font-size: 1.5em;
+      /*╤Й╨╛╨▒ ╨╜╨╡ ╨╝╨╛╨╢╨╜╨░ ╨▒╤Г╨╗╨╛ ╨▓╨╕╨┤╤Ц╨╗╨╕╤В╨╕ ╨╝╨╕╤И╨║╨╛╤О ╨╡╨╗╨╡╨╝╨╡╨╜╤В*/
+      -moz-user-select: none;
+      -khtml-user-select: none;
+      -webkit-user-select: none; }
 
 /*# sourceMappingURL=style.css.map */
