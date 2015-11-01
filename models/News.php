@@ -188,7 +188,9 @@ class News
 	}
 
 
-	public static function getNumberOfPagesPerPage()
+
+	//виводить форму з вибором к-сті новин на сторінку
+	public static function getNumberOfNewsPerPage()
 	{
 
 		//функція з формою вибору статтей на сторінку
@@ -252,6 +254,8 @@ class News
 		elseif (isset($_COOKIE['news-per-page'])) {
 			$news_quantity = $_COOKIE['news-per-page'];
 		}
+
+		//задається к-сть новин на сторінку по замовчуванню
 		elseif (!isset($_POST['news-per-page']) && !isset($_COOKIE['news-per-page'])) {
 			$news_quantity = 3;
 			setcookie("news-per-page", $news_quantity, time()+360000, "/");
@@ -278,8 +282,6 @@ class News
 								);
 											//(($page-1) * $news_quantity)  --  для послідовності сторінок: сторінка №1 з новими статтями
 											//(($page_count - $page) * $news_quantity)  -- для послідовності сторінок: сторінка №1 з старими статтями, а остання сторінка з найновішими статтями
-
-
 			$i = 0;
 			while ($row = $result->fetch()) {
 				$newsList[$i]['id'] = $row['id'];

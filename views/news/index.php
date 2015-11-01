@@ -73,10 +73,10 @@ require(ROOT . '/base/header.php');
 			<table>
 					<tr>
 						<td <?php print($newsItem['display_none_back']); ?>>
-							<a href="/page/<?php print($newsItem['page'] + 1); ?>"></i>сюда</a>
+							<a href="/page/<?php print($newsItem['page'] + 1); ?>">сюда</a>
 						</td>						
 						<td <?php print($newsItem['display_none_next']); ?>>
-							<a  href="/page/<?php print($newsItem['page'] - 1); ?>">туда</a>
+							<a href="/page/<?php print($newsItem['page'] - 1); ?>">туда</a>
 						</td>
 					</tr>
 			</table>

@@ -173,5 +173,7 @@ table {
       -moz-user-select: none;
       -khtml-user-select: none;
       -webkit-user-select: none; }
+    .pager table tr td a:hover {
+      background: #31698a; }
 
 /*# sourceMappingURL=style.css.map */

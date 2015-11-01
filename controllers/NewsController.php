@@ -31,7 +31,7 @@ class NewsController
 	//вивід статтей по сторінках
 	public function actionIndexByPage($page)
 	{
-		$news_per_page = News::getNumberOfPagesPerPage();
+		$news_per_page = News::getNumberOfNewsPerPage();
 		
 		$newsList = array();
 		$newsList = News::getNewsListByPage($page);
