@@ -1,7 +1,7 @@
 <?php
 //
 // Підключаємо хедер сайту.
-require_once(ROOT . '/base/header.php');
+require(ROOT . '/base/header.php');
 
 							/*
 							print '<pre>';
@@ -30,7 +30,7 @@ require_once(ROOT . '/base/header.php');
 <div class="articles-list">
 
 	<div class="small-menu"> 
-		<?php print $news_per_page; ?> <p>статтей на сторіку</p>
+		<?php print $news_per_page; ?> <p>статтей на сторінку</p>
 	</div>
 
 

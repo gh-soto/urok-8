@@ -4,8 +4,9 @@ html {
   min-height: 100%; }
 
 body {
-  background: #80b07e;
-  height: 100%; }
+  background-image: url(/template/img/bg2.jpg);
+  height: 100%;
+  font-family: 'Roboto', sans-serif; }
   body .articles-list {
     padding-bottom: 100px;
     /*╨Я╤А╨╕╨╝╨╡╤А╨╜╨╛ 2 ╤А╨░╨╖╨╝╨╡╤А╨░ footer, ╤З╤В╨╛╨▒╤Л ╨╛╨╜ ╨╜╨╡ ╨╜╨░╨╡╨╖╨╢╨░╨╗ ╨╜╨░ ╨║╨╛╨╜╤В╨╡╨╜╤В ╨┐╤А╨╕ ╤Г╨╖╨║╨╛╨╝ ╨╛╨║╨╜╨╡ ╨▒╤А╨░╤Г╨╖╨╡╤А╨░*/ }
@@ -19,7 +20,9 @@ h1 {
   font-weight: bold;
   color: #3869ec;
   text-align: center;
-  margin: 30px auto; }
+  margin: 30px auto;
+  font-family: 'Bad Script', cursive;
+  text-shadow: 2px 2px 2px #6897bb, 0 0 0.2em #f5f5dc; }
 
 h2 {
   font-size: 2em;
@@ -93,10 +96,9 @@ table {
     .small-menu .form-inline .form-group select {
       width: 60px; }
   .small-menu p {
-    color: #1e5e1b;
-    font-weight: bold;
-    font-style: italic;
-    font-family: 'Roboto', sans-serif;
+    color: #1d351c;
+    text-shadow: 2px 1px 1px #6897bb, 0 0 0.5em #f5f5dc;
+    font-family: 'Bad Script', cursive, 'Roboto', sans-serif;
     margin-left: 10px;
     display: block;
     float: left; }
@@ -110,8 +112,8 @@ table {
 
 .article-item {
   padding: 10px;
-  border-radius: 5px;
-  background-color: #dbe5e2;
+  border-radius: 3px;
+  background-color: rgba(245, 245, 220, 0.4);
   width: 95%;
   margin: auto;
   margin-top: 30px;
@@ -158,12 +160,13 @@ table {
       display: block;
       height: 48px;
       line-height: 48px;
-      background: #FED410;
+      background: #0e2f44;
+      border: solid 1px #003366;
       border-radius: 8px;
       text-align: center;
       text-decoration: none;
       font-style: italic;
-      color: #000;
+      color: #f0f8ff;
       font-family: 'Roboto', sans-serif;
       font-size: 1.5em;
       /*╤Й╨╛╨▒ ╨╜╨╡ ╨╝╨╛╨╢╨╜╨░ ╨▒╤Г╨╗╨╛ ╨▓╨╕╨┤╤Ц╨╗╨╕╤В╨╕ ╨╝╨╕╤И╨║╨╛╤О ╨╡╨╗╨╡╨╝╨╡╨╜╤В*/
